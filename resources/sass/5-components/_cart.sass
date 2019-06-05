@@ -1,0 +1,45 @@
+$bp-cart: 450px
+
+.cart
+    width: 100%
+    table-layout: fixed
+
+    +bp($bp-cart)
+        text-align: center
+
+.cart-row
+    display: block
+    margin: 0 auto
+    padding-bottom: 2rem
+    +cf
+
+    +bp($bp-cart)
+        display: table-row
+
+    > td
+        display: block
+        margin-bottom: .5rem
+
+        +bp($bp-cart)
+            display: table-cell
+
+.cart-remove-btn
+    color: $accent
+    text-align: center
+    font-size: .9rem
+
+.cart-img-cell
+    float: left
+    margin-right: 3rem
+    text-align: left
+
+    +bp($bp-cart)
+        float: none
+        margin: 0
+
+.cart-img-wrap
+    display: inline-block
+    margin-bottom: 1rem
+
+    +bp($bp-cart)
+        margin-top: 1.5rem

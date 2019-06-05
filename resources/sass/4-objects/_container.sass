@@ -1,0 +1,21 @@
+.container, .container-slim
+    padding-right: 15px
+    padding-left: 15px
+    margin-right: auto
+    margin-left: auto
+
++bp($bp-sm)
+    .container
+        max-width: 750px
+
++bp($bp-md)
+    .container
+        max-width: 970px
+
++bp($bp-lg)
+    .container
+        max-width: 1170px
+
+// Narrow container.
+.container-slim
+    max-width: 600px

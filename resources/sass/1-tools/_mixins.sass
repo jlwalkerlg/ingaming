@@ -1,0 +1,9 @@
+=bp($bp)
+    @media (min-width: $bp)
+        @content
+
+=cf
+    &::after
+        content: ''
+        display: block
+        clear: both

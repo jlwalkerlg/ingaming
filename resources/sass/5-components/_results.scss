@@ -1,0 +1,78 @@
+.results {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "header header"
+    "filter filter"
+    "list list"
+    "pagination pagination";
+  padding-top: 40px;
+
+  @include bp($bp-md) {
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "filter header"
+      "filter list"
+      ". pagination"
+  }
+}
+
+.results-header {
+  grid-area: header;
+
+  @include bp($bp-md) {
+    padding: 2rem 0 0 2rem;
+    border-left: 1px solid #707070;
+  }
+}
+
+.results-filter {
+  grid-area: filter;
+
+  @include bp($bp-md) {
+    padding: 2rem 2rem 2rem 0;
+  }
+}
+
+.results-filter-toggle {
+  > span {
+    text-transform: capitalize;
+  }
+
+  > svg {
+    margin-left: .5rem;
+    transition: transform .2s ease-out;
+  }
+
+  @include bp($bp-md) {
+    display: none;
+  }
+}
+
+.results-filter-form {
+  height: 0;
+  overflow: hidden;
+  transition: height .2s ease-out;
+
+  @include bp($bp-md) {
+    height: auto;
+  }
+}
+
+.results-filter-title {
+  display: none;
+  line-height: 40px;
+
+  @include bp($bp-md) {
+    display: block;
+  }
+}
+
+.results-list {
+  grid-area: list;
+}
+
+.results-pagination {
+  grid-area: pagination;
+}

@@ -1,0 +1,57 @@
+.btn
+    display: inline-block
+    height: 40px
+    padding: 0 2em
+    border: none
+    font-family: inherit
+    font-size: 1.1rem
+    font-weight: bold
+    line-height: 40px
+    text-align: center
+    text-transform: uppercase
+    vertical-align: middle
+    cursor: pointer
+
+    transition: background .2s ease-out, color .2s ease-out
+
+    &:hover:not(.btn-plain)
+        border-color: lighten(#000, 5%)
+        background: lighten(#000, 5%)
+        color: $light
+
+.btn-block
+    display: block
+    width: 100%
+
+// A button without formatting; looks like regular text.
+.btn-plain
+    padding: 0
+    border: none
+    background: none
+    color: inherit
+    font-size: inherit
+    font-weight: inherit
+    cursor: pointer
+    text-transform: inherit
+    vertical-align: baseline
+
+.btn-primary
+    background: $primary
+    color: #000
+
+.btn-action
+    background: $action
+    color: #000
+
+.btn-outline-primary
+    border: 1px solid $primary
+    background: none
+    color: $primary
+
+.btn-outline-secondary
+    border: 1px solid $light
+    background: none
+    color: $light
+
+.btn-pill
+    border-radius: 5em

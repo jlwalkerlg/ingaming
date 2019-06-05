@@ -1,0 +1,34 @@
+.game-carousel
+    position: relative
+    display: flex
+    overflow: scroll
+
+.game
+    margin-right: 36px
+    font-size: .9rem
+
+    +bp($bp-sm)
+        font-size: 1.1rem
+
+.game-img
+    width: 79px
+    height: 99px
+    max-width: none
+
+    +bp($bp-sm)
+        width: 131px
+        height: 164px
+
+.game-title
+    color: $primary
+    font-weight: 700
+    margin: 4px 0
+
+.game-stars.stars
+    svg
+        width: 14px
+        height: 14px
+
+.game-price
+    margin: 8px 0 0
+    color: $accent

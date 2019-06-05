@@ -1,0 +1,45 @@
+{
+  "name": "ingaming",
+  "version": "1.0.0",
+  "description": "inGAMING website.",
+  "private": true,
+  "scripts": {
+    "dev": "webpack",
+    "watch": "webpack --watch",
+    "prod": "webpack --config webpack.config.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "?"
+  },
+  "author": "Jordan Walker",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "autoprefixer": "^9.4.2",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^2.0.0",
+    "doiuse": "^4.2.0",
+    "file-loader": "^2.0.0",
+    "image-webpack-loader": "^4.6.0",
+    "imagemin-webpack-plugin": "^2.4.2",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "resolve-url-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-manifest-plugin": "^2.0.4"
+  },
+  "dependencies": {
+    "braintree-web-drop-in": "^1.17.2"
+  }
+}

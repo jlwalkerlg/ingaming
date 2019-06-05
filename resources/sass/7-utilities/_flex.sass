@@ -1,0 +1,29 @@
+.flex
+    display: flex
+
++bp($bp-sm)
+    .flex-sm
+        display: flex
+
++bp($bp-md)
+    .flex-md
+        display: flex
+
+.flex-wrap
+    flex-wrap: wrap
+
+@for $i from 1 through 5
+    .flex-#{$i}
+        flex: $i
+
+.justify-between
+    justify-content: space-between
+
+.align-start
+    align-items: start
+
+.align-center
+    align-items: center
+
+.align-self-start
+  align-self: start

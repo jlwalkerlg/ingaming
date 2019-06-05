@@ -1,0 +1,53 @@
+.show-head
+    min-height: 100vh
+    background:
+        color: lighten(#000, 10%)
+        position: center
+        size: cover
+        repeat: no-repeat
+    display: flex
+    align-items: center
+    overflow: hidden
+
+.show-head-container
+    +bp($bp-md)
+        display: flex
+        justify-content: center
+
+.show-head-trailer
+    flex: 1
+
+.show-head-blurb
+    flex: 1
+    margin-bottom: 1rem
+    padding: 1rem
+    background: transparentize(#000, .2)
+    color: $primary
+    text-align: center
+
+    +bp($bp-md)
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        margin-bottom: 0
+        margin-right: 1rem
+        text-align: left
+
+.show-head-title
+    margin: 0
+    font-weight: 400
+    text-transform: uppercase
+
+    +bp($bp-md)
+        font-size: 2.5rem
+
+.show-head-text > p
+    margin: 1rem 0
+    font-size: .9rem
+    line-height: 1.5
+
+    +bp($bp-sm)
+        font-size: 1.1rem
+
+    +bp(1209px)
+        line-height: 2

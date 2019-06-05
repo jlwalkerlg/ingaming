@@ -1,0 +1,24 @@
+.alert
+    position: fixed
+    right: 1rem
+    bottom: 1rem
+    margin: 0
+    padding: .5rem 1rem
+    background: #000
+    border: 1px solid $light
+    border-top: 4px solid $light
+    color: $light
+    font-size: .9rem
+    z-index: 9998
+    animation: flash 5s ease-out forwards
+
+@keyframes flash
+    0%
+        transform: translateX(200%)
+    10%
+        transform: none
+    90%
+        transform: none
+    100%
+        transform: translateX(200%)
+        visibility: hidden
