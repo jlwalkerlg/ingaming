@@ -8,3 +8,10 @@ RUN docker-php-ext-install pdo_mysql \
   && a2enmod rewrite \
   && service apache2 restart \
   && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+# Enable virtual host config.
+WORKDIR /etc/apache2/sites-available/
+COPY vhosts.conf ./
+RUN a2ensite vhosts.conf \
+  && a2dissite 000-default.conf \
+  && service apache2 restart
