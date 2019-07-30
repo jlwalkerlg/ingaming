@@ -1,17 +1,12 @@
 {
-  "js/admin.js": "/js/admin.js",
-  "js/adminEditGame.js": "/js/adminEditGame.js",
-  "js/adminGames.js": "/js/adminGames.js",
-  "js/adminNewGames.js": "/js/adminNewGames.js",
-  "js/adminViewGame.js": "/js/adminViewGame.js",
-  "js/cart.js": "/js/cart.js",
-  "js/checkout.js": "/js/checkout.js",
-  "js/checkout.braintree.js": "/js/checkout/braintree.js",
-  "js/checkout.stripe.js": "/js/checkout/stripe.js",
-  "js/checkout.success.js": "/js/checkout/success.js",
-  "js/index.js": "/js/index.js",
-  "js/login.js": "/js/login.js",
-  "js/products.js": "/js/products.js",
-  "js/register.js": "/js/register.js",
-  "js/show.js": "/js/show.js"
+  "css/style.css": "/css/style.3c365ba909acf5a32b37.css",
+  "js/admin.js": "/js/admin.fb3c007bfd45bf2426dc.js",
+  "js/adminGames.js": "/js/adminGames.ae9efcafc190b5346896.js",
+  "js/adminNewGames.js": "/js/adminNewGames.0b17052582220464fc47.js",
+  "js/cart.js": "/js/cart.b6a879006a85b6c432d5.js",
+  "js/index.js": "/js/index.ec6b89fbf89351906a66.js",
+  "js/login.js": "/js/login.35186eb165bcaee231ef.js",
+  "js/products.js": "/js/products.92d5748132ab12b3ae30.js",
+  "js/register.js": "/js/register.db252b4564121108ba95.js",
+  "js/show.js": "/js/show.79750f147aca3e9d7d94.js"
 }
