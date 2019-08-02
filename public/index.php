@@ -29,7 +29,8 @@ $servicesProviders = [
     // Custom services.
     App\Providers\AppServiceProvider::class,
     App\Providers\AssetServiceProvider::class,
-    App\Providers\PurifierServiceProvider::class
+    App\Providers\PurifierServiceProvider::class,
+    App\Providers\PaymentServiceProvider::class,
 ];
 
 // Class aliases for use within views.
