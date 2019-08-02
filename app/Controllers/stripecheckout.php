@@ -16,7 +16,7 @@ use App\Models\Transaction;
 use App\Lib\Mail\MailFactory;
 use Bellona\Support\Facades\Encrypt;
 
-class Checkout extends Controller
+class StripeCheckout extends Controller
 {
     public function index(Payment $pg)
     {
