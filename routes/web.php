@@ -29,9 +29,7 @@ Router::get('/games/{id}', 'Games@show')->where('id', '[0-9]+');
 
 // CART
 // ==================================================
-Router::get('/cart', 'Cart@show');
-
-Router::get('/cart/{cart}', 'Cart@show')->where('cart', '[0-9]+')->middleware('can:crud,cart');
+Router::get('/cart', 'Cart@show')->middleware('auth');
 
 Router::post('/cart', 'Cart@addProduct');
 

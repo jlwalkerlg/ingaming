@@ -44,7 +44,7 @@
                     <span class="text-bold mr-1">Total:</span> £<span id="cartDropdownTotal"><?= h($cartTotal ?? '0.00') ?></span>
                 </p>
                 <hr>
-                <a id="cartLink" href="<?= url('cart/' . h($cartId ?? '')) ?>" class="btn btn-block btn-action">View Cart</a>
+                <a id="cartLink" href="<?= url('cart/') ?>" class="btn btn-block btn-action">View Cart</a>
             </div>
         </div>
 

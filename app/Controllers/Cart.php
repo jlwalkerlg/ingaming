@@ -16,9 +16,11 @@ use Bellona\Support\Facades\Auth;
 
 class Cart extends Controller
 {
-    public function show($id = null)
+    public function show()
     {
-        $cart = $id ? CartModel::find($id) : null;
+        $user = Auth::user();
+        $cartId = $user->cart_id;
+        $cart = $cartId ? CartModel::find($cartId) : null;
 
         if (!$cart) {
             $products = [];
@@ -59,9 +61,7 @@ class Cart extends Controller
             back();
         }
 
-        $cartId = $response['cartId'];
-
-        redirect("/cart/$cartId");
+        redirect("/cart");
     }
 
 
@@ -130,7 +130,6 @@ class Cart extends Controller
 
         $response['success'] = true;
         $response['msg'] = 'Product added to cart.';
-        $response['cartId'] = $cart->id;
         $response['cartCount'] = $cartCount;
         $response['cartTotal'] = $cartTotal;
 
