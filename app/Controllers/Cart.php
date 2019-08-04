@@ -42,17 +42,7 @@ class Cart extends Controller
     {
         $response = $this->addProductToCart($request);
 
-        if (!$request->data('buy_now')) {
-            echo json_encode($response);
-            exit;
-        }
-
-        if (!$response['success']) {
-            Session::flash('alert', $response['msg']);
-            back();
-        }
-
-        redirect("/cart");
+        echo json_encode($response);
     }
 
 

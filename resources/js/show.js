@@ -12,19 +12,15 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-  const addToBasketBtn = document.querySelector('#addToBasketBtn');
-
-  addToBasketBtn.addEventListener('click', addProductToCart);
-
-  function addProductToCart() {
-    const gameId = this.dataset.productId;
+  function addProductToCart(e) {
+    const gameId = e.target.dataset.productId;
 
     const data = {
       csrf_token: getCsrfToken(),
       product_id: gameId,
     };
 
-    fetch('/api/cart', {
+    return fetch('/api/cart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,4 +38,16 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       });
   }
+
+  function handleBuyNow(e) {
+    addProductToCart(e).then(() => {
+      window.location = '/cart';
+    });
+  }
+
+  const addToBasketBtn = document.querySelector('#addToBasketBtn');
+  const buyNowBtn = document.querySelector('#buyNowBtn');
+
+  addToBasketBtn.addEventListener('click', addProductToCart);
+  buyNowBtn.addEventListener('click', handleBuyNow);
 });

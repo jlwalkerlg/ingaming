@@ -20,12 +20,7 @@
     <div class="container flex-sm">
         <div class="text-center mr-4-sm">
             <img src="<?= URL_ROOT ?>uploads/product_images/product_<?= h($game->id) ?>/<?= h($game->case_img) ?>" alt="<?= h($game->title) ?> case" class="game-case mb-2">
-            <form action="<?= url('/cart') ?>" method="post">
-                <?= CSRF::input() ?>
-                <input type="hidden" name="product_id" value="<?= $game->id ?>">
-                <input type="hidden" name="buy_now" value="true">
-                <input type="submit" value="Buy now" class="btn btn-block btn-action mb-2">
-            </form>
+            <button id="buyNowBtn" class="btn btn-block btn-action mb-2" data-product-id="<?= h($game->id) ?>">Buy now</button>
             <button id="addToBasketBtn" class="btn btn-block btn-primary mb-4" data-product-id="<?= h($game->id) ?>">Add to basket</button>
         </div>
         <div class="flex-1">
