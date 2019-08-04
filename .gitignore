@@ -52,7 +52,6 @@ Temporary Items
 # End of https://www.gitignore.io/api/macos,composer,visualstudiocode
 
 .env
-README.md
 package-lock.json
 node_modules
 public/uploads
