@@ -69,6 +69,7 @@
                     <!-- Card -->
                     <div class="mb-4">
                         <div id="btDropin"></div>
+                        <small class="text-muted">You can test the checkout process with Paypal&apos;s test card <code>4111 1111 1111 1111</code>.</small>
                     </div>
 
                     <!-- Submit -->
