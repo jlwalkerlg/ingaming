@@ -2,9 +2,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const toggle = document.querySelector('#siteNavCartToggle');
     const dropdown = document.querySelector('#siteNavCartDropdown');
 
-    toggle.addEventListener('click', toggleDropdown);
-
-    function toggleDropdown() {
+    if (toggle) {
+      function toggleDropdown() {
         dropdown.classList.toggle('show');
+      }
+
+      toggle.addEventListener('click', toggleDropdown);
     }
 });
