@@ -5,7 +5,6 @@ namespace App\Controllers;
 use Bellona\Http\Controller;
 
 use Bellona\Support\Facades\Auth;
-use App\Models\Cart;
 use Bellona\Support\Facades\Session;
 use App\Lib\Payment\Payment;
 use Bellona\Http\Request;

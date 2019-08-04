@@ -31,14 +31,14 @@ Router::get('/games/{id}', 'Games@show')->where('id', '[0-9]+');
 // ==================================================
 Router::get('/cart', 'Cart@show')->middleware('auth');
 
-Router::post('/cart', 'Cart@addProduct');
+Router::post('/cart', 'Cart@addProduct')->middleware('auth');
 
 
 // CHECKOUT
 // ==================================================
-Router::get('/checkout', 'Checkout@index');
+Router::get('/checkout', 'Checkout@index')->middleware('auth');
 
-Router::post('/checkout', 'Checkout@confirm');
+Router::post('/checkout', 'Checkout@confirm')->middleware('auth');
 
 Router::get('/checkout/success/{transaction}', 'Checkout@success')->middleware('can:view,transaction');
 
