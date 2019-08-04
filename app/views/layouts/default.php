@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <!-- Custom style sheet -->
     <link rel="stylesheet" href="<?= Asset::get('css/style.css') ?>">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
 </head>
 
 <body>
