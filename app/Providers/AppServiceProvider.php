@@ -10,13 +10,15 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $cart = Auth::user()->cart();
-        $products = $cart->products();
-        $cartCount = count($products);
-        $cartTotal = array_reduce($products, function ($carry, $product) {
-            return $carry + $product->price * $product->quantity;
-        }, 0);
-        View::share('cartCount', $cartCount);
-        View::share('cartTotal', $cartTotal);
+        if (Auth::isLoggedIn()) {
+            $cart = Auth::user()->cart();
+            $products = $cart->products();
+            $cartCount = count($products);
+            $cartTotal = array_reduce($products, function ($carry, $product) {
+                return $carry + $product->price * $product->quantity;
+            }, 0);
+            View::share('cartCount', $cartCount);
+            View::share('cartTotal', $cartTotal);
+        }
     }
 }

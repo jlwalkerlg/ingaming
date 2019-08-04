@@ -9,12 +9,9 @@
         <p class="site-head-title text-upper m-0"><?= h($featured->title) ?></p>
         <p class="site-head-subtitle mt-2 mb-4"><?= $featured->isOut() ? 'Out now on' : 'Coming soon to' ?> <?= h($featured->platform) ?></p>
         <div class="site-head-btns">
-            <form action="<?= url('/cart') ?>" method="post" class="site-head-btn m-1">
-                <?= CSRF::input() ?>
-                <input type="hidden" name="product_id" value="<?= $featured->id ?>">
-                <input type="hidden" name="buy_now" value="true">
-                <input type="submit" value="<?= $featured->isOut() ? 'Buy' : 'Preorder' ?> now" class="btn btn-block btn-primary btn-pill">
-            </form>
+            <span class="site-head-btn m-1">
+                <button id="buyNowBtn" class="btn btn-block btn-primary btn-pill" data-product-id="<?= h($featured->id) ?>"><?= $featured->isOut() ? 'Buy' : 'Preorder' ?> now</button>
+            </span>
             <span class="site-head-btn m-1">
                 <button id="trailerBtn" class="btn btn-block btn-outline-secondary btn-pill">Watch trailer</button>
             </span>
