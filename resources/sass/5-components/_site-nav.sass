@@ -13,14 +13,8 @@
     height: 40px
     line-height: 40px
 
-.site-nav-toggle
-    position: relative
-    margin-left: 1rem
-    z-index: 2
-    cursor: pointer
-
-    +bp($bp-sm)
-        display: none
+.site-nav-left
+    margin-right: auto
 
 .site-nav-brand
     display: inline-block
@@ -29,11 +23,18 @@
         padding: .1rem 1rem .1rem 0
 
 .site-nav-admin
-    display: inline-block
+    +bp($bp-sm)
+        display: none
 
-    > span
-        padding: .1rem 1rem
-        border-left: 1px solid $light
+    &--sm
+        display: none
+
+        +bp($bp-sm)
+            display: inline-block
+
+            > span
+                padding: .1rem 1rem
+                border-left: 1px solid $light
 
 .site-nav-list
     display: flex
@@ -93,7 +94,10 @@
         padding: .1rem 1rem
 
         +bp($bp-sm)
-            border-right: 1px solid $light
+            border-left: 1px solid $light
+
+    .site-nav-item:first-child > & > span
+        border-left: none
 
     &::after
         content: ''
@@ -125,10 +129,15 @@
         margin-left: 0
 
 .site-nav-cart-btn
-    padding: 0 0 0 1rem
+    padding: 0
     border: none
     background: none
     cursor: pointer
+
+    +bp($bp-sm)
+        & > span
+            padding: .1rem 1rem
+            border-left: 1px solid $light
 
     svg
         width: 1em
@@ -160,3 +169,12 @@
         border-left: 6px solid transparent
         border-right: 6px solid transparent
         border-bottom: 6px solid #F8F8F8
+
+.site-nav-toggle
+    position: relative
+    margin-left: 1rem
+    z-index: 2
+    cursor: pointer
+
+    +bp($bp-sm)
+        display: none
