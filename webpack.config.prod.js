@@ -19,7 +19,13 @@ module.exports = {
     cart: './js/cart.js',
     admin: './js/admin.js',
     adminGames: './js/adminGames',
-    adminNewGames: './js/adminNewGames'
+    adminNewGames: './js/adminNewGames',
+    adminViewGame: './js/adminViewGame',
+    adminEditGame: './js/adminEditGame',
+    checkout: './js/checkout.js',
+    'checkout.stripe': './js/checkout/stripe.js',
+    'checkout.success': './js/checkout/success.js',
+    'checkout.braintree': './js/checkout/braintree.js'
   },
   output: {
     filename: 'js/[name].[contenthash].js',
