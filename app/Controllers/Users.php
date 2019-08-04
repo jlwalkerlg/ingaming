@@ -8,9 +8,7 @@ use Bellona\Support\Facades\Session;
 use Bellona\Support\Facades\Auth;
 use Bellona\Http\Request;
 use App\Models\User;
-use Bellona\Support\Facades\Cookie;
-use App\Models\Cart;
-use Bellona\Support\Facades\Encrypt;
+use Bellona\Support\Facades\DB;
 
 class Users extends Controller
 {
@@ -28,9 +26,6 @@ class Users extends Controller
 
         if ($user) {
             if (password_verify($request->data('password'), $user->password)) {
-                if ($this->mergeCart($user)) {
-                    $user->save();
-                }
                 Auth::login($user);
                 Session::flash('alert', 'Logged in.');
                 redirect('/');
@@ -64,10 +59,19 @@ class Users extends Controller
 
         $user->password = password_hash($user->password, PASSWORD_DEFAULT);
 
-        $this->mergeCart($user);
+        try {
+            DB::beginTransaction();
+            if ($user->save()) {
+                $user->createCart();
+            }
+            DB::commit();
+            $success = true;
+        } catch (\Throwable $e) {
+            DB::rollback();
+            $success = false;
+        }
 
-        if ($user->save()) {
-            $this->mergeCart($user);
+        if ($success) {
             Auth::login($user);
             Session::flash('alert', 'Welcome to inGAMING');
             redirect('/');
@@ -83,17 +87,5 @@ class Users extends Controller
         Auth::logout();
         Session::flash('alert', 'Logged out.');
         redirect('/');
-    }
-
-
-    private function mergeCart(User $user)
-    {
-        if ($user->cart_id === null && $cookie = Cookie::get(CART_COOKIE_NAME)) {
-            $cartId = Encrypt::decryptString($cookie);
-            $cart = Cart::find($cartId);
-            $user->cart_id = $cart->id;
-            return true;
-        }
-        return false;
     }
 }

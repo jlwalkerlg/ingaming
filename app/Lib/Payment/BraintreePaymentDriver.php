@@ -4,6 +4,7 @@ namespace App\Lib\Payment;
 
 use Braintree\Gateway;
 use App\Models\Transaction;
+use Bellona\Support\Facades\Auth;
 
 class BraintreePaymentDriver implements PaymentContract
 {
@@ -65,6 +66,7 @@ class BraintreePaymentDriver implements PaymentContract
         $transaction->city = $this->data['address']['city'];
         $transaction->country = $this->data['address']['country'];
         $transaction->postcode = $this->data['address']['postal_code'];
+        $transaction->user_id = Auth::id();
         $transaction->cart_id = $this->cartId;
 
         $this->transaction = $transaction;
@@ -117,6 +119,6 @@ class BraintreePaymentDriver implements PaymentContract
 
     public function setCartId($cartId)
     {
-        $this->cartId = (int)$cartId;
+        $this->cartId = (int) $cartId;
     }
 }

@@ -5,28 +5,19 @@ namespace App\Controllers;
 use Bellona\Http\Controller;
 use App\Models\Game;
 use Bellona\Http\Request;
-use Bellona\Support\Facades\Cookie;
-use App\Models\Cart as CartModel;
 use App\Models\CartProduct;
 use Bellona\Support\Facades\DB;
 use Bellona\Support\Facades\CSRF;
 use Bellona\Validation\Validator;
-use Bellona\Support\Facades\Encrypt;
 use Bellona\Support\Facades\Auth;
 
 class Cart extends Controller
 {
     public function show()
     {
-        $user = Auth::user();
-        $cartId = $user->cart_id;
-        $cart = $cartId ? CartModel::find($cartId) : null;
+        $cart = Auth::user()->cart();
 
-        if (!$cart) {
-            $products = [];
-        } else {
-            $products = DB::table('cart_products as cp')->join('games', 'cp.game_id', '=', 'games.id')->select('cp.id', 'cp.quantity', 'games.id as game_id', 'games.case_img', 'games.title', 'games.price')->where('cart_id', $cart->id)->get();
-        }
+        $products = DB::table('cart_products as cp')->join('games', 'cp.game_id', '=', 'games.id')->select('cp.id', 'cp.quantity', 'games.id as game_id', 'games.case_img', 'games.title', 'games.price')->where('cp.cart_id', $cart->id)->get();
 
         $totalPrice = array_reduce($products, function ($carry, $product) {
             return $carry + ($product->price * $product->quantity);
@@ -78,24 +69,7 @@ class Cart extends Controller
             return $response;
         }
 
-        if ($user = Auth::user()) {
-            $cartId = $user->cart_id;
-        } elseif ($cookie = Cookie::get(CART_COOKIE_NAME)) {
-            $cartId = Encrypt::decryptString($cookie);
-        }
-
-        if (isset($cartId)) {
-            $cart = CartModel::find($cartId);
-        }
-
-        if (!isset($cart)) {
-            $cart = new CartModel;
-            if (!$cart->save()) {
-                $response['success'] = false;
-                $response['msg'] = 'Failed to create new cart.';
-                return $response;
-            }
-        }
+        $cart = Auth::user()->cart();
 
         $cartProduct = CartProduct::where([
             ['cart_id', $cart->id],
@@ -105,7 +79,6 @@ class Cart extends Controller
         if ($cartProduct) {
             $response['success'] = true;
             $response['msg'] = 'Product already in cart.';
-            $response['cartId'] = $cart->id;
             return $response;
         }
 
@@ -118,12 +91,6 @@ class Cart extends Controller
             $response['success'] = false;
             $response['msg'] = 'Failed to add product to cart.';
             return $response;
-        }
-
-        // Only set cookie if there is not a cookie with a different cartId from the logged in user.
-        if (!$user || (isset($cookie) && isset($cartId) && $cartId === $user->cart_id)) {
-            $cookie = Encrypt::encryptString($cart->id);
-            Cookie::set(CART_COOKIE_NAME, $cookie, CART_COOKIE_DURATION, null, null, null, true);
         }
 
         [$cartCount, $cartTotal] = $this->getCartValues($cart->id);
@@ -162,7 +129,8 @@ class Cart extends Controller
             $response = [
                 'success' => true,
                 'msg' => 'Product quantity updated.',
-                'cartTotal' => $cartTotal
+                'cartCount' => $cartCount,
+                'cartTotal' => $cartTotal,
             ];
         } else {
             $response = [

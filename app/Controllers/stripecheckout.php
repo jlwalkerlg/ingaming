@@ -5,16 +5,13 @@ namespace App\Controllers;
 use Bellona\Http\Controller;
 
 use Bellona\Support\Facades\Auth;
-use Bellona\Support\Facades\Cookie;
 use App\Models\Cart;
-use Bellona\Support\Facades\DB;
 use Bellona\Support\Facades\Session;
 use App\Lib\Payment\Payment;
 use Bellona\Validation\Validator;
 use Bellona\Http\Request;
 use App\Models\Transaction;
 use App\Lib\Mail\MailFactory;
-use Bellona\Support\Facades\Encrypt;
 
 class StripeCheckout extends Controller
 {
@@ -22,43 +19,14 @@ class StripeCheckout extends Controller
     {
         $cart = $this->getCart();
 
-        if (!$cart) {
-            Session::flash('alert', 'Failed to retrieve cart from database.');
-            back();
-        }
-
-        $products = $this->getCartProducts($cart->id);
+        $products = $cart->products();
 
         if (!$products) {
             Session::flash('alert', 'There are no items in your cart!');
-            redirect("/cart/{$cart->id}");
+            redirect('/cart');
         }
 
         $pg->renderCheckout($products);
-    }
-
-
-    private function getCart()
-    {
-        if ($user = Auth::user()) {
-            $cartId = $user->cart_id;
-        } elseif ($cookie = Cookie::get(CART_COOKIE_NAME)) {
-            $cartId = Encrypt::decryptString($cookie);
-        }
-
-        if (isset($cartId)) {
-            $cart = Cart::find($cartId);
-        }
-
-        return $cart ?? null;
-    }
-
-
-    private function getCartProducts($cartId)
-    {
-        $products = DB::table('cart_products as cp')->join('games', 'cp.game_id', '=', 'games.id')->join('platforms', 'games.platform_id', '=', 'platforms.id')->where('cart_id', $cartId)->select('games.title', 'games.price', 'cp.quantity', 'games.case_img', 'games.cover_img', 'platforms.short_name as platform')->get();
-
-        return $products;
     }
 
 
@@ -85,15 +53,6 @@ class StripeCheckout extends Controller
 
         $cart = $this->getCart();
 
-        if (!$cart) {
-            Session::flash('alert', 'Failed to retrieve cart from database.');
-            $response['error'] = true;
-            $response['fatal'] = true;
-            $response['location'] = url('/');
-            echo json_encode($response);
-            exit;
-        }
-
         $subtotal = $this->getCartSubtotal($cart->id);
 
         if ($subtotal !== 0 && !$subtotal) {
@@ -107,6 +66,7 @@ class StripeCheckout extends Controller
 
         $pg->setData($request->data());
         $pg->setCartId($cart->id);
+
         $response = $pg->confirmPayment($subtotal);
 
         if (isset($response['success'])) {
@@ -122,26 +82,16 @@ class StripeCheckout extends Controller
     }
 
 
-    private function getCartSubtotal($cartId)
+    private function getCart()
     {
-        $sql = 'SELECT SUM(games.price * cp.quantity)
-        FROM cart_products as cp
-        INNER JOIN games ON cp.game_id = games.id
-        WHERE cp.cart_id = ?
-        ';
-        $params = [$cartId];
-
-        $sth = DB::query($sql, $params);
-        $sth->execute();
-
-        return $sth->fetchColumn();
+        return Cart::where('user_id', Auth::id())->first();
     }
 
 
     private function onSuccess($transaction)
     {
-        // Delete items from cart.
-        DB::table('cart_products as cp')->where('cp.cart_id', $transaction->cart_id)->delete();
+        // Create new cart for user.
+        Auth::user()->createCart();
 
         // Email verification.
         $gmail = app(MailFactory::class)->make('gmail');

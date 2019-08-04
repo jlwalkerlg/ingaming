@@ -6,6 +6,7 @@ use Stripe\Stripe;
 use Stripe\Error\Base;
 use Stripe\PaymentIntent;
 use App\Models\Transaction;
+use Bellona\Support\Facades\Auth;
 
 class StripePaymentDriver implements PaymentContract
 {
@@ -48,7 +49,7 @@ class StripePaymentDriver implements PaymentContract
 
     public function setCartId($cartId)
     {
-        $this->cartId = (int)$cartId;
+        $this->cartId = (int) $cartId;
     }
 
 
@@ -66,6 +67,7 @@ class StripePaymentDriver implements PaymentContract
             $transaction->city = $this->data['address']['city'];
             $transaction->country = $this->data['address']['country'];
             $transaction->postcode = $this->data['address']['postal_code'];
+            $transaction->user_id = Auth::id();
             $transaction->cart_id = $this->cartId;
         } elseif ($intent->status === 'succeeded') {
             $transaction = Transaction::where('payment_id', $intent->id)->first();

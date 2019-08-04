@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Bellona\Database\Model;
+use Bellona\Support\Facades\DB;
 
 class User extends Model
 {
     protected $table = 'users';
-    protected $fillable = ['first_name', 'last_name', 'email', 'password', 'cart_id'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'password'];
 
 
     /**
@@ -28,6 +29,18 @@ class User extends Model
      */
     public function isAdmin()
     {
-        return (int)$this->is_admin === 1;
+        return (int) $this->is_admin === 1;
+    }
+
+
+    public function cart()
+    {
+        return Cart::where('user_id', $this->id)->orderBy('id', 'desc')->first();
+    }
+
+
+    public function createCart()
+    {
+        return DB::table('carts')->insert(['user_id' => $this->id]);
     }
 }
