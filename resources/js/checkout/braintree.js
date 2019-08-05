@@ -1,12 +1,10 @@
 import '../../sass/style.sass';
 import '../modules/siteNav';
 
-import dropin from 'braintree-web-drop-in';
-
 const form = document.querySelector('#checkoutForm');
 const clientToken = form.dataset.clientToken;
 
-dropin.create(
+braintree.dropin.create(
   {
     authorization: clientToken,
     selector: '#btDropin',

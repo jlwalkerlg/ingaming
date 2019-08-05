@@ -1,5 +1,6 @@
 <?php $this->extends('default') ?>
 
+<?php $this->block('body') ?>
 <div class="container full-screen">
     <div class="container mt-nav hide-overflow">
 
@@ -102,3 +103,8 @@
 
     </div>
 </div>
+<?php $this->endblock() ?>
+
+<?php $this->block('foot') ?>
+<script src="https://js.braintreegateway.com/web/dropin/1.19.0/js/dropin.min.js"></script>
+<?php $this->endblock() ?>

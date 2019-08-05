@@ -25,12 +25,12 @@ module.exports = {
     checkout: './js/checkout.js',
     'checkout.stripe': './js/checkout/stripe.js',
     'checkout.success': './js/checkout/success.js',
-    'checkout.braintree': './js/checkout/braintree.js'
+    'checkout.braintree': './js/checkout/braintree.js',
   },
   output: {
     filename: 'js/[name].[contenthash].js',
     path: path.resolve(__dirname, 'public'),
-    publicPath: '/'
+    publicPath: '/',
   },
   plugins: [
     new WebpackManifestPlugin({
@@ -43,7 +43,7 @@ module.exports = {
         const ext = path.extname(file.name).slice(1);
 
         const newFile = {
-          ...file
+          ...file,
         };
 
         if (ext === 'js') {
@@ -53,19 +53,19 @@ module.exports = {
         }
 
         return newFile;
-      }
+      },
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/style.[contenthash].css'
+      filename: 'css/style.[contenthash].css',
     }),
     new CopyWebpackPlugin([
       {
         from: 'img',
-        to: 'img'
-      }
+        to: 'img',
+      },
     ]),
     new ImageminWebpackPlugin({ test: /\.(jpe?g|png|gif)$/i }),
-    new CleanWebpackPlugin(['public/js', 'public/img', 'public/css'])
+    new CleanWebpackPlugin(['public/js', 'public/img', 'public/css']),
   ],
   optimization: {
     minimizer: [new UglifyJsPlugin({}), new OptimizeCSSAssetsPlugin({})],
@@ -77,10 +77,10 @@ module.exports = {
           // https://webpack.js.org/plugins/split-chunks-plugin/#split-chunks-example-2
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
+          chunks: 'all',
+        },
+      },
+    },
   },
   module: {
     rules: [
@@ -91,9 +91,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
@@ -103,47 +103,47 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[path][name].[ext]',
-              context: path.resolve(__dirname, 'resources')
-            }
+              context: path.resolve(__dirname, 'resources'),
+            },
           },
           {
             // Optimize images.
-            loader: 'image-webpack-loader'
-          }
-        ]
+            loader: 'image-webpack-loader',
+          },
+        ],
       },
       {
         test: /\.s[ac]ss$/,
         use: [
           {
             // Extract CSS out of JS bundle
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             // Parse CSS file.
             loader: 'css-loader',
             options: {
-              importLoaders: 3
-            }
+              importLoaders: 3,
+            },
           },
           {
             // Requires a postcss.config.js file.
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
           },
           {
             // Allows relative paths to be used in scss partials, instead of having to write them relative to the main style.scss which imports them.
             // Requires a sourceMap from all previous loaders in the chain.
-            loader: 'resolve-url-loader'
+            loader: 'resolve-url-loader',
           },
           {
             loader: 'sass-loader',
             options: {
               // sourceMap required for resolve-url-loader
-              sourceMap: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
 };

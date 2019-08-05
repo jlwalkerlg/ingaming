@@ -39,7 +39,5 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-manifest-plugin": "^2.0.4"
   },
-  "dependencies": {
-    "braintree-web-drop-in": "^1.17.2"
-  }
+  "dependencies": {}
 }

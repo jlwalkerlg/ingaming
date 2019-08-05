@@ -33,13 +33,14 @@
         </div>
     </footer>
 
+    <!-- Foot -->
+    <?php $this->yield('foot') ?>
+
     <!-- Scripts -->
     <?php foreach ($scripts ?? [] as $script) : ?>
         <script src="<?= Asset::get("js/{$script}.js") ?>"></script>
     <?php endforeach; ?>
-
-    <!-- Foot -->
-    <?php $this->yield('foot') ?>
+    <script src="<?= Asset::get("js/vendors.js") ?>"></script>
 
 </body>
 
